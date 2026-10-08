@@ -5,7 +5,7 @@ storage:
 name: API Pool
 tagline: One Anthropic API key, routed across your Console organizations by remaining credit
 category: developer
-version: "0.3.1"
+version: "0.3.2"
 port: 8787
 description: >-
   api-pool sits in front of several Anthropic Console organizations and exposes your own client keys.
@@ -34,15 +34,11 @@ repo: https://github.com/julian27sg/umbrel-apps
 support: https://github.com/julian27sg/umbrel-apps/issues
 gallery: []
 releaseNotes: >-
-  Accuracy and OpenAI-format release. OpenAI clients get structured outputs (response_format json_schema
-  and json_object), parallel_tool_calls, PDF and text file attachments, and a model list that shows every
-  effort variant (claude-opus-5-5:xhigh and friends) in the app's model picker; openaiCache in config.json
-  sets the prompt-cache TTL. Metering: advisor and compaction sub-inferences are priced at their own model,
-  fast-mode cache prices are correct, a new model id is flagged as a pricing problem instead of silently
-  priced like an older one, batch results are metered while they stream (a cut download no longer loses
-  them), session responses are no longer double-booked, and a Console balance above the monthly credit is
-  stored as a credit instead of a negative spend. The dashboard separates reachable from parked credit.
-  Operations: memory limit, version in the startup log and footer, pinned release workflow.
+  Fix: a request for a feature your organizations do not have (for example a "Fast" model variant; Anthropic
+  answers "rate limit of 0 fast mode input tokens") no longer parks every organization for a minute. The
+  pool tries the next organization without a cooldown and, if none can serve it, relays Anthropic's answer
+  at once. Everything else as in 0.3.1: OpenAI structured outputs, file attachments, effort variants in the
+  model list, accurate metering, dashboard login with client keys and ntfy alerts.
 dependencies: []
 path: ""
 defaultUsername: ""
