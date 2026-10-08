@@ -8,7 +8,7 @@ One Anthropic API key in front of several Console organizations, routed by remai
 
 After installing, put these files into the app's data folder (umbrelOS Files app → Apps → API Pool → data):
 
-- `config/config.json` — one entry per organization (`name`, `monthlyUsd`, `resetAnchor`), see `julian-api-pool/config.example.json`
-- `secrets/keys.json` — `{ "<name>": "sk-ant-…" }` for every configured key
+- `secrets/keys.json` — `{ "<name>": "sk-ant-…" }`, one line per organization (the name is any label, e.g. the account's e-mail)
+- `config/config.json` — optional overrides only (e.g. `monthlyUsd: 500` for a Team plan), see `julian-api-pool/config.example.json`
 
 Then restart the app. The generated pool key is in `db/pool.key`.

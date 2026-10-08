@@ -5,7 +5,7 @@ storage:
 name: API Pool
 tagline: One Anthropic API key, routed across your Console organizations by remaining credit
 category: developer
-version: "0.1.2"
+version: "0.2.0"
 port: 8787
 description: >-
   api-pool sits in front of several Anthropic Console organizations and exposes a single pool key.
@@ -30,7 +30,10 @@ repo: https://github.com/julian27sg/umbrel-apps
 support: https://github.com/julian27sg/umbrel-apps/issues
 gallery: []
 releaseNotes: >-
-  OpenAI-compatible chat completions (/v1/chat/completions) are now metered as well, and clients that do not send an anthropic-version header get the default.
+  keys.json is now the list of organizations (use the account e-mail as the name); config.json is optional.
+  Keys without a reset date learn their refill date automatically by probing once the balance is empty.
+  OpenAI-compatible chat clients are translated to the native API (prompt caching, tools, images) and can
+  pick an effort level with a model suffix such as claude-opus-5-5:xhigh. Dashboard no longer flickers.
 dependencies: []
 path: ""
 defaultUsername: ""
