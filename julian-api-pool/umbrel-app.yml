@@ -5,7 +5,7 @@ storage:
 name: API Pool
 tagline: One Anthropic API key, routed across your Console organizations by remaining credit
 category: developer
-version: "0.3.2"
+version: "0.4.0"
 port: 8787
 description: >-
   api-pool sits in front of several Anthropic Console organizations and exposes your own client keys.
@@ -22,8 +22,9 @@ description: >-
 
 
   Setup: put keys.json into data/secrets (and an optional config.json into data/config) of this app's
-  data folder, restart, read the first client key "default" from data/db/pool.key, then open the dashboard
-  once to set up the login with that key and create per-app keys. API clients use
+  data folder, restart, then open the dashboard once and set up the login with the one-time code from
+  data/db/setup-code (written at the first start, removed after the setup); create one client key per app there. The
+  first client key "default" is in data/db/pool.key for clients that need one before the dashboard is set up. API clients use
   https://umbrel.local:8787 as base URL with a client key; the /v1/* paths do not require the umbrelOS
   login, the dashboard does. Templates and documentation: https://github.com/julian27sg/umbrel-apps
 developer: Julian
@@ -34,11 +35,16 @@ repo: https://github.com/julian27sg/umbrel-apps
 support: https://github.com/julian27sg/umbrel-apps/issues
 gallery: []
 releaseNotes: >-
-  Fix: a request for a feature your organizations do not have (for example a "Fast" model variant; Anthropic
-  answers "rate limit of 0 fast mode input tokens") no longer parks every organization for a minute. The
-  pool tries the next organization without a cooldown and, if none can serve it, relays Anthropic's answer
-  at once. Everything else as in 0.3.1: OpenAI structured outputs, file attachments, effort variants in the
-  model list, accurate metering, dashboard login with client keys and ntfy alerts.
+  New dashboard, built like the Claude Console with an Apple-style finish: a sidebar with Übersicht, Client-Keys,
+  Nutzung, Kosten, Anfragen, Ereignisse, Einstellungen and Sicherheit (tab bar on the phone), filters by range,
+  client key, organization and model, stat cards, a daily cost chart, scrollable tables with sticky headers and a
+  paginated request log. It installs as an app: Safari → Ablage → "Zum Dock hinzufügen" on the Mac, Teilen →
+  "Zum Home-Bildschirm" on the iPhone; "Angemeldet bleiben" keeps you signed in for 30 days. Security from the
+  second audit: sessions are bound to the connection they were created on, login lockouts are per peer, and the
+  first-run setup uses a one-time code from data/db/setup-code instead of a client key. Robustness: keepalive on
+  native streams for long thinking phases behind Cloudflare, the overdraft guard now pauses keys whose reset
+  date is still estimated, forced tool choice reaches every model that supports it, structured outputs refuse
+  schemas they cannot express instead of silently emptying fields, and several metering corrections.
 dependencies: []
 path: ""
 defaultUsername: ""
