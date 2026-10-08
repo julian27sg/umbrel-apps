@@ -5,7 +5,7 @@ storage:
 name: API Pool
 tagline: One Anthropic API key, routed across your Console organizations by remaining credit
 category: developer
-version: "0.1.0"
+version: "0.1.1"
 port: 8787
 description: >-
   api-pool sits in front of several Anthropic Console organizations and exposes a single pool key.
