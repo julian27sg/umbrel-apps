@@ -5,7 +5,7 @@ storage:
 name: API Pool
 tagline: One Anthropic API key, routed across your Console organizations by remaining credit
 category: developer
-version: "0.4.0"
+version: "0.4.1"
 port: 8787
 description: >-
   api-pool sits in front of several Anthropic Console organizations and exposes your own client keys.
@@ -35,16 +35,11 @@ repo: https://github.com/julian27sg/umbrel-apps
 support: https://github.com/julian27sg/umbrel-apps/issues
 gallery: []
 releaseNotes: >-
-  New dashboard, built like the Claude Console with an Apple-style finish: a sidebar with Übersicht, Client-Keys,
-  Nutzung, Kosten, Anfragen, Ereignisse, Einstellungen and Sicherheit (tab bar on the phone), filters by range,
-  client key, organization and model, stat cards, a daily cost chart, scrollable tables with sticky headers and a
-  paginated request log. It installs as an app: Safari → Ablage → "Zum Dock hinzufügen" on the Mac, Teilen →
-  "Zum Home-Bildschirm" on the iPhone; "Angemeldet bleiben" keeps you signed in for 30 days. Security from the
-  second audit: sessions are bound to the connection they were created on, login lockouts are per peer, and the
-  first-run setup uses a one-time code from data/db/setup-code instead of a client key. Robustness: keepalive on
-  native streams for long thinking phases behind Cloudflare, the overdraft guard now pauses keys whose reset
-  date is still estimated, forced tool choice reaches every model that supports it, structured outputs refuse
-  schemas they cannot express instead of silently emptying fields, and several metering corrections.
+  Install fix: the app icon and manifest are reachable without the umbrelOS login and are fetched with your
+  login cookies, so "Zum Dock hinzufügen" (Mac) and "Zum Home-Bildschirm" (iPhone) get the icon and the
+  standalone window. Everything else as in 0.4.0: the new Console-style dashboard with Apple finish, phone
+  layout, daily cost chart, paginated request log, "Angemeldet bleiben" for 30 days, and the second-audit
+  security fixes (peer-bound sessions, per-peer login lockout, one-time setup code).
 dependencies: []
 path: ""
 defaultUsername: ""

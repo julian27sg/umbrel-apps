@@ -3,11 +3,11 @@ services:
     environment:
       APP_HOST: julian-api-pool_server_1
       APP_PORT: 8787
-      # API clients cannot send the umbrelOS login cookie; the pool key protects these paths.
-      PROXY_AUTH_WHITELIST: "/v1/*,/healthz"
+      # API clients cannot send the umbrelOS login cookie; client keys protect /v1. The app icon and manifest carry no data.
+      PROXY_AUTH_WHITELIST: "/v1/*,/healthz,/manifest.webmanifest,/icon.svg,/apple-touch-icon.png,/icon-512.png"
 
   server:
-    image: ghcr.io/julian27sg/api-pool:0.4.0@sha256:adb3b67ebdde3bdfef2ef5cd81b540c15de715f1d46938e39eada0234e57a582
+    image: ghcr.io/julian27sg/api-pool:0.4.1@sha256:eeb9e60cfee5a4ce10cf941e53697aa29cd7715bcfeafa8130dac2e9ed59d2a0
     user: "1000:1000"
     restart: on-failure
     read_only: true
