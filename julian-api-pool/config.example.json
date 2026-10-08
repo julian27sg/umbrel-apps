@@ -1,0 +1,11 @@
+{
+  "bind": { "host": "0.0.0.0", "port": 8787 },
+  "upstream": "https://api.anthropic.com",
+  "reserveUsd": 2,
+  "maxInflight": 64,
+  "keys": [
+    { "name": "max-01", "monthlyUsd": 200, "resetAnchor": "2026-10-15T00:00:00Z" },
+    { "name": "max-02", "monthlyUsd": 400, "resetAnchor": "2026-10-20T00:00:00Z", "allowOverflow": false },
+    { "name": "team",   "monthlyUsd": 500, "resetAnchor": "2026-10-03T00:00:00Z", "enabled": true }
+  ]
+}

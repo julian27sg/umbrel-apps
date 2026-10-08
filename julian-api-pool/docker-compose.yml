@@ -1,0 +1,29 @@
+services:
+  app_proxy:
+    environment:
+      APP_HOST: julian-api-pool_server_1
+      APP_PORT: 8787
+      # API clients cannot send the umbrelOS login cookie; the pool key protects these paths.
+      PROXY_AUTH_WHITELIST: "/v1/*,/healthz"
+
+  server:
+    image: ghcr.io/julian27sg/api-pool:0.1.0@sha256:a82efbcf02c5d1727c3f9cb7e238472193345051df46aa06ebe77c53ed1473f0
+    user: "1000:1000"
+    restart: on-failure
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      CONFIG_PATH: /app/config/config.json
+      SECRETS_DIR: /secrets
+      DATA_DIR: /data
+      BIND_HOST: 0.0.0.0
+      BIND_PORT: "8787"
+    volumes:
+      - ${APP_DATA_DIR}/data/config:/app/config:ro
+      - ${APP_DATA_DIR}/data/secrets:/secrets:ro
+      - ${APP_DATA_DIR}/data/db:/data

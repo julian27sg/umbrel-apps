@@ -1,0 +1,36 @@
+manifestVersion: 1
+id: julian-api-pool
+storage:
+  dataRoot: data
+name: API Pool
+tagline: One Anthropic API key, routed across your Console organizations by remaining credit
+category: developer
+version: "0.1.0"
+port: 8787
+description: >-
+  api-pool sits in front of several Anthropic Console organizations and exposes a single pool key.
+  Every request goes to the organization whose monthly subscriber credit still has balance and expires
+  soonest. The whole Claude API is passed through byte for byte (streaming, tools, files, batches,
+  Managed Agents); only the API key is swapped.
+
+
+  The dashboard shows the remaining credit per key and for the pool, reset dates, today's activity and
+  the last requests, and lets you pause keys, correct a balance from the Console or rotate the pool key.
+
+
+  Setup: put config.json into data/config and keys.json into data/secrets of this app's data folder
+  (templates and documentation at https://github.com/julian27sg/umbrel-apps). The generated pool key is
+  written to data/db/pool.key. API clients use http://umbrel.local:8787 as base URL with the pool key;
+  the /v1/* paths do not require the umbrelOS login, the dashboard does.
+developer: Julian
+website: https://github.com/julian27sg/umbrel-apps
+submitter: julian27sg
+submission: https://github.com/julian27sg/umbrel-apps
+repo: https://github.com/julian27sg/umbrel-apps
+support: https://github.com/julian27sg/umbrel-apps/issues
+gallery: []
+releaseNotes: ""
+dependencies: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
