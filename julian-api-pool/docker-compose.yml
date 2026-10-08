@@ -7,10 +7,12 @@ services:
       PROXY_AUTH_WHITELIST: "/v1/*,/healthz"
 
   server:
-    image: ghcr.io/julian27sg/api-pool:0.3.0@sha256:9b6087958a6cc31511dc3b68acbf3e866026eb2f3999024b852afefd723af546
+    image: ghcr.io/julian27sg/api-pool:0.3.1@sha256:1cdcf6de9900b075f416550dd67035f1595f43fab2b1a130d10dd33d45c791a8
     user: "1000:1000"
     restart: on-failure
     read_only: true
+    # Node sizes its heap from the cgroup limit (about a quarter); 1536m leaves ~1 GB heap plus buffers.
+    mem_limit: 1536m
     tmpfs:
       - /tmp
     cap_drop:
@@ -23,6 +25,7 @@ services:
       DATA_DIR: /data
       BIND_HOST: 0.0.0.0
       BIND_PORT: "8787"
+      NODE_OPTIONS: --max-old-space-size=1024
     volumes:
       - ${APP_DATA_DIR}/data/config:/app/config:ro
       - ${APP_DATA_DIR}/data/secrets:/secrets:ro

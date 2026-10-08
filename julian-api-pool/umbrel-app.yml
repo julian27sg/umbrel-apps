@@ -5,7 +5,7 @@ storage:
 name: API Pool
 tagline: One Anthropic API key, routed across your Console organizations by remaining credit
 category: developer
-version: "0.3.0"
+version: "0.3.1"
 port: 8787
 description: >-
   api-pool sits in front of several Anthropic Console organizations and exposes your own client keys.
@@ -34,16 +34,15 @@ repo: https://github.com/julian27sg/umbrel-apps
 support: https://github.com/julian27sg/umbrel-apps/issues
 gallery: []
 releaseNotes: >-
-  Dashboard login and client keys. After the update, open the dashboard once: it asks for your existing
-  pool key (now the client key named "default", still in data/db/pool.key), a new password and an
-  authenticator app (TOTP). Then create one client key per app in the dashboard and revoke "default" when
-  every app has its own key; the old key keeps working until you do. New in the dashboard: usage per client
-  key or organization by model for today, 7 days, 30 days or the cycle; the last requests with client key
-  and origin; a timeline of key events; banners for problems and alerts; settings for push notifications
-  through ntfy (no key with credit, disabled keys, long pauses, refills, overdraft guard, unknown models,
-  duplicate organizations, high spend rate, keys that empty early). At startup keys are checked for
-  duplicate organizations. Recovery after a lost authenticator: create an empty file data/db/reset-admin
-  and restart. Use https://umbrel.local:8787 on the LAN; umbrelOS provides the certificate.
+  Accuracy and OpenAI-format release. OpenAI clients get structured outputs (response_format json_schema
+  and json_object), parallel_tool_calls, PDF and text file attachments, and a model list that shows every
+  effort variant (claude-opus-5-5:xhigh and friends) in the app's model picker; openaiCache in config.json
+  sets the prompt-cache TTL. Metering: advisor and compaction sub-inferences are priced at their own model,
+  fast-mode cache prices are correct, a new model id is flagged as a pricing problem instead of silently
+  priced like an older one, batch results are metered while they stream (a cut download no longer loses
+  them), session responses are no longer double-booked, and a Console balance above the monthly credit is
+  stored as a credit instead of a negative spend. The dashboard separates reachable from parked credit.
+  Operations: memory limit, version in the startup log and footer, pinned release workflow.
 dependencies: []
 path: ""
 defaultUsername: ""
