@@ -5,23 +5,27 @@ storage:
 name: API Pool
 tagline: One Anthropic API key, routed across your Console organizations by remaining credit
 category: developer
-version: "0.2.2"
+version: "0.3.0"
 port: 8787
 description: >-
-  api-pool sits in front of several Anthropic Console organizations and exposes a single pool key.
+  api-pool sits in front of several Anthropic Console organizations and exposes your own client keys.
   Every request goes to the organization whose monthly subscriber credit still has balance and expires
   soonest. The whole Claude API is passed through byte for byte (streaming, tools, files, batches,
-  Managed Agents); only the API key is swapped.
+  Managed Agents); only the API key is swapped. OpenAI-format chat clients are translated as well.
 
 
-  The dashboard shows the remaining credit per key and for the pool, reset dates, today's activity and
-  the last requests, and lets you pause keys, correct a balance from the Console or rotate the pool key.
+  The dashboard has its own login (password + authenticator app) and shows the remaining credit per
+  organization and for the pool, reset dates, usage per client key or organization by model, the last
+  requests with their origin, a timeline of key events and alerts. You create one client key per app,
+  rename or revoke them, pause organizations, correct a balance from the Console and configure push
+  alerts through ntfy.
 
 
-  Setup: put config.json into data/config and keys.json into data/secrets of this app's data folder
-  (templates and documentation at https://github.com/julian27sg/umbrel-apps). The generated pool key is
-  written to data/db/pool.key. API clients use http://umbrel.local:8787 as base URL with the pool key;
-  the /v1/* paths do not require the umbrelOS login, the dashboard does.
+  Setup: put keys.json into data/secrets (and an optional config.json into data/config) of this app's
+  data folder, restart, read the first client key "default" from data/db/pool.key, then open the dashboard
+  once to set up the login with that key and create per-app keys. API clients use
+  https://umbrel.local:8787 as base URL with a client key; the /v1/* paths do not require the umbrelOS
+  login, the dashboard does. Templates and documentation: https://github.com/julian27sg/umbrel-apps
 developer: Julian
 website: https://github.com/julian27sg/umbrel-apps
 submitter: julian27sg
@@ -30,18 +34,16 @@ repo: https://github.com/julian27sg/umbrel-apps
 support: https://github.com/julian27sg/umbrel-apps/issues
 gallery: []
 releaseNotes: >-
-  Hardening release. A request no longer fails because one account runs dry mid-run: an empty balance is
-  confirmed with a one-token probe before a key is parked, request header hygiene stops one bad request
-  from disabling every key, and disabled/suspended organizations are recognised and probed daily. Streams
-  stay alive during long thinking phases (keepalive comments, 10-minute idle timeout) and OpenAI-format
-  streams end cleanly on errors. Routing: a 529 overload is relayed at once, other 5xx errors are retried
-  once on another key (never for requests that create files or batches), the pool answers 429 with
-  retry-after when every key is rate-limited, effort suffixes also work for count_tokens and batches, and
-  chat completions are recognised by path. Files, batches, sessions, agents, vaults and deployments stay
-  bound to their organization; reads and deletes on them keep working while that key is exhausted. New
-  overdraft guard pauses a key that spends beyond its monthly credit without Anthropic reporting an empty
-  balance. The dashboard reports configuration problems, probe results and alerts; a missing secret no
-  longer prevents the start.
+  Dashboard login and client keys. After the update, open the dashboard once: it asks for your existing
+  pool key (now the client key named "default", still in data/db/pool.key), a new password and an
+  authenticator app (TOTP). Then create one client key per app in the dashboard and revoke "default" when
+  every app has its own key; the old key keeps working until you do. New in the dashboard: usage per client
+  key or organization by model for today, 7 days, 30 days or the cycle; the last requests with client key
+  and origin; a timeline of key events; banners for problems and alerts; settings for push notifications
+  through ntfy (no key with credit, disabled keys, long pauses, refills, overdraft guard, unknown models,
+  duplicate organizations, high spend rate, keys that empty early). At startup keys are checked for
+  duplicate organizations. Recovery after a lost authenticator: create an empty file data/db/reset-admin
+  and restart. Use https://umbrel.local:8787 on the LAN; umbrelOS provides the certificate.
 dependencies: []
 path: ""
 defaultUsername: ""

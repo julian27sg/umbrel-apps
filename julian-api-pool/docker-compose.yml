@@ -7,7 +7,7 @@ services:
       PROXY_AUTH_WHITELIST: "/v1/*,/healthz"
 
   server:
-    image: ghcr.io/julian27sg/api-pool:0.2.2@sha256:5c4427fc1cbc6b99abad1fd60832bed396e4a24687a2153765805bfb423c6e39
+    image: ghcr.io/julian27sg/api-pool:0.3.0@sha256:9b6087958a6cc31511dc3b68acbf3e866026eb2f3999024b852afefd723af546
     user: "1000:1000"
     restart: on-failure
     read_only: true
