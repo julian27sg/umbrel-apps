@@ -5,7 +5,7 @@ storage:
 name: API Pool
 tagline: One Anthropic API key, routed across your Console organizations by remaining credit
 category: developer
-version: "0.4.2"
+version: "0.4.3"
 port: 8787
 description: >-
   api-pool sits in front of several Anthropic Console organizations and exposes your own client keys.
@@ -38,7 +38,8 @@ releaseNotes: >-
   Installed iPhone app: no more black bar under the clock (the dark strip painted behind the translucent status
   bar is gone; the header's glass runs under it). Refresh by hand: pull down from the top on the phone, or use the
   new refresh button (top right on the phone, next to logout in the Mac sidebar). The title bar of the Mac Dock app
-  follows the light or dark scheme. Everything else as in 0.4.1.
+  follows the light or dark scheme. 0.4.3 decides the pull gesture on its first movement so slow pulls do not fight
+  the native bounce. Everything else as in 0.4.1.
 dependencies: []
 path: ""
 defaultUsername: ""
