@@ -7,7 +7,7 @@ services:
       PROXY_AUTH_WHITELIST: "/v1/*,/healthz,/manifest.webmanifest,/icon.svg,/apple-touch-icon.png,/icon-512.png"
 
   server:
-    image: ghcr.io/julian27sg/api-pool:0.4.3@sha256:e0293d3a89f265bf672f12109090188d5a133644b2ea43cfb72e0074ae59bc4b
+    image: ghcr.io/julian27sg/api-pool:0.4.4@sha256:f0a85d5d33d70cc6944ce106eaf2a53f280d6c8b640eee0de6d630d846183e4c
     user: "1000:1000"
     restart: on-failure
     read_only: true
