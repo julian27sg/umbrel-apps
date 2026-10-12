@@ -5,7 +5,7 @@ storage:
 name: API Pool
 tagline: One Anthropic API key, routed across your Console organizations by remaining credit
 category: developer
-version: "0.4.5"
+version: "0.4.6"
 port: 8787
 description: >-
   api-pool sits in front of several Anthropic Console organizations and exposes your own client keys.
@@ -35,11 +35,11 @@ repo: https://github.com/julian27sg/umbrel-apps
 support: https://github.com/julian27sg/umbrel-apps/issues
 gallery: []
 releaseNotes: >-
-  Two fixes for API clients on the public hostname. Non-streaming requests no longer die with Cloudflare's
-  524 after 125 seconds: the pool streams the answer from Anthropic and hands the client one JSON body, keeping
-  the connection alive while the model works. Batch objects now carry a results_url that points at the pool,
-  so the official SDKs fetch batch results through it instead of failing with 401. Also from 0.4.4: credits
-  that run out mid-answer mark that organization as empty right away.
+  Final-review fixes. Non-streaming requests through Cloudflare now keep the real error status when the
+  answer fails before it starts (credit errors switch organization, overloads come back as 529 for the SDK to
+  retry); a failure after the answer started closes the connection so clients retry instead of reading an
+  empty message. Model ids are capped in the pool's own records, organization ids and names no longer reach
+  clients, request-log pages count correctly, and slow filter answers no longer overwrite the current view.
 dependencies: []
 path: ""
 defaultUsername: ""
